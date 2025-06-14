@@ -31,7 +31,7 @@ export default function Index() {
         if (current !== null) {
             // Reset all image transforms when any image is active
             images.forEach((img) => {
-                img.style.transform = "translate(0, 0) scale(1)";
+                img.style.transform = `translate(0, 0) scale(1)`;
             });
             return;
         }
@@ -54,15 +54,8 @@ export default function Index() {
         });
     };
 
-    const handleClick = () => {
-        const images = document.querySelectorAll(".images");
-        images.forEach((img) => {
-            img.style.transform = "translate(0, 0) scale(1)";
-        });
-    }
-
     return (
-        <section id="myImages" onClick={handleClick} onMouseMove={handleMousemove}  >
+        <section id="myImages" onMouseMove={handleMousemove}>
             <div className="imagesWrapper">
                 {dataOne.map((image) => {
                     const active = image.id === current;
@@ -80,8 +73,8 @@ export default function Index() {
                                 left: active ? "50%" : notCurrent ? (isSmallScreen ? `${(image.id - 1) * 8.4}%` : "93%") : "",
                                 top: active ? "50%" : notCurrent ? (isSmallScreen ? "0" : `${(image.id - 1) * 6.7}%`) : "",
                                 transform: `translate(${active ? "-50%, -50%" : "0,0"})`,
-                                width: active ? "50vh" : notCurrent ? "4rem" : "",
-                                height: active ? "70vh" : notCurrent ? "4rem" : "",
+                                width: active ? (isSmallScreen ? "40vh" : "50vh") : notCurrent ? "4rem" : "",
+                                height: active ? (isSmallScreen ? "60vh" : "70vh") : notCurrent ? "4rem" : "",
                                 pointerEvents: notCurrent ? "none" : "",
                                 zIndex: active ? 99 : 9,
                             }}
@@ -89,7 +82,7 @@ export default function Index() {
                             <img src={image.src}
                                 className="images"
                                 style={{
-                                    transform: `scale(${active ? 1 : notCurrent ? 1.3 : 1.3})`,
+                                    transform: `translate(0, 0) scale(${current ? 1 : 1.3})`,
                                 }}
                             // For custom movement value
                             // data-id={image.id}
